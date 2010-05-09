@@ -96,10 +96,10 @@ module Mongo3
          
     def show( path_names )
       path_name_tokens = path_names.split( "|" )
-      info             = OrderedHash.new
+      info             = BSON::OrderedHash.new
       zone             = path_name_tokens[1]
 
-      info[:links] = OrderedHash.new      
+      info[:links] = BSON::OrderedHash.new      
       info[:title] = path_name_tokens.last
             
       # If detect slave only show reg info
@@ -111,7 +111,7 @@ module Mongo3
           info[:host]           = con.host
           info[:users]          = con.db('admin')[Mongo::DB::SYSTEM_USER_COLLECTION].count rescue 0
           info[:port]           = con.port
-          info[:databases]      = OrderedHash.new
+          info[:databases]      = BSON::OrderedHash.new
           con.database_info.sort { |a,b| b[1] <=> a[1] }.each { |e| info[:databases][e[0]] = to_mb( e[1] ) }
           info[:server]         = con.server_info
         end
@@ -158,7 +158,7 @@ module Mongo3
           cltns = []
           names.each do |name|
             list = db[name]
-            row  = OrderedHash.new
+            row  = BSON::OrderedHash.new
             row[:name]  = name
             row[:count] = list.count
             cltns << row
