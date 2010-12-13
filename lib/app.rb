@@ -1,4 +1,5 @@
 require 'rubygems'
+gem 'json', '1.2.0'
 require 'sinatra'
 require 'forwardable'
 require File.expand_path( File.join( File.dirname(__FILE__), 'mongo3.rb' ) )
